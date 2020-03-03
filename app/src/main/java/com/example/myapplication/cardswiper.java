@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.myapplication.Adapter.arrayAdapter;
+import com.example.myapplication.Fragments.UsersFragment;
 import com.example.myapplication.Models.cards;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -154,6 +155,9 @@ public class cardswiper extends AppCompatActivity {
                 {
                     currentDb.child(dataSnapshot.getKey()).child("connection").child("matches").child(currentUser.getUid()).setValue(true);
                     currentDb.child(currentUser.getUid()).child("connection").child("matches").child(dataSnapshot.getKey()).setValue(true);
+                    Toast.makeText(cardswiper.this,"It's a Match",Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(cardswiper.this, UsersFragment.class);
+                    startActivity(intent);
                 }
             }
 
@@ -275,7 +279,7 @@ public class cardswiper extends AppCompatActivity {
 
     public void logOut(View view)
     {
-
+        /*
         mAuth.signOut();
         Intent intent = new Intent(cardswiper.this, MainActivity.class);
         startActivity(intent);
@@ -283,6 +287,10 @@ public class cardswiper extends AppCompatActivity {
 
 
         Toast.makeText(cardswiper.this,"stay on this page",Toast.LENGTH_SHORT).show();
+
+         */
+        Intent intent = new Intent(cardswiper.this,cardswiper.class);
+        startActivity(intent);
     }
 
     public void goToSetting(View view)

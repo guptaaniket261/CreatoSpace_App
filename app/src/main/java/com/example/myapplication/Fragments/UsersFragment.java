@@ -53,16 +53,16 @@ public class UsersFragment extends Fragment {
     private void readUsers() {
 
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mUsers.clear();
+               // mUsers.clear();
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
                     Users user = snapshot.getValue(Users.class);
 
-                    if(!user.getId().equals(firebaseUser.getUid())) {
+                    if(!user.getId().equals(firebaseUser.getUid()) || user.getId().equals(reference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("connection").child("matches").getKey())) {
                         mUsers.add(user);
                     }
                 }

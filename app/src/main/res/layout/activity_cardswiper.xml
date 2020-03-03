@@ -33,21 +33,6 @@
         >
 
         <Button
-            android:id="@+id/signout"
-            android:layout_width="112dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:onClick="logOut"
-            android:paddingLeft="10sp"
-            android:text="@string/title_activity_cardswiper"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.01" />
-
-        <Button
             android:id="@+id/goToSetting"
             android:layout_width="112dp"
             android:layout_height="60dp"
@@ -56,6 +41,22 @@
             android:text="Profile"
             android:layout_marginLeft="3sp"
             android:paddingLeft="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.01" />
+
+
+        <Button
+            android:id="@+id/signout"
+            android:layout_width="112dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:onClick="logOut"
+            android:paddingLeft="10sp"
+            android:text="@string/title_activity_cardswiper"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -77,5 +78,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.01" />
+
     </LinearLayout>
+
 </LinearLayout>
