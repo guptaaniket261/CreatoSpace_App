@@ -13,6 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.io.IOException;
 
 public class AskPicture extends AppCompatActivity {
@@ -21,6 +25,7 @@ public class AskPicture extends AppCompatActivity {
     public static EditText qual,gender;
     private ImageView profilePic;
     public static Uri uriProfileImage;
+    FirebaseUser fuser;
 
 
     @Override
@@ -32,6 +37,16 @@ public class AskPicture extends AppCompatActivity {
         qual = findViewById(R.id.edit_education);
         gender = findViewById(R.id.gender);
         profilePic = findViewById(R.id.imageView);
+
+        fuser = FirebaseAuth.getInstance().getCurrentUser();
+
+        if(fuser.getPhotoUrl().equals("default")) {
+            profilePic.setImageResource(R.mipmap.ic_launcher);
+        } else {
+            Glide.with(getApplicationContext()).load(fuser.getPhotoUrl()).into(profilePic);
+        }
+
+
 
         profilePic.setOnClickListener(new View.OnClickListener() {
             @Override

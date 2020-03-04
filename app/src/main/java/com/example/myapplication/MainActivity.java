@@ -4,9 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -14,6 +17,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,7 +34,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+import com.google.firebase.storage.UploadTask;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 
@@ -48,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
 
     //creating a GoogleSignInClient object
     GoogleSignInClient mGoogleSignInClient;
+
+    StorageTask uploadTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,8 +186,44 @@ public class MainActivity extends AppCompatActivity {
                                     if (dataSnapshot.getValue()==null) {
                                         FirebaseUser user = firebaseLogin.getCurrentUser();
                                         assert user != null;
-                                        Users user1 = new Users(user.getUid(),user.getDisplayName(),user.getEmail(),user.getPhoneNumber(),null,"default",null,null,null,null);
+                                        Users user1 = new Users(user.getUid(),user.getDisplayName(),user.getEmail(),user.getPhoneNumber(),null,user.getPhotoUrl().toString(),null,null,null,null);
                                         userDb.child(user.getUid()).setValue(user1);
+
+//                                        StorageReference Ref = FirebaseStorage.getInstance().getReference().child(("Images")).child(System.currentTimeMillis()+"."+getExtension(AskPicture.uriProfileImage));
+//                                        uploadTask = Ref.putFile(user.getPhotoUrl())
+//                                                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                                                    @Override
+//                                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                                                        // Get a URL to the uploaded content
+//                                                        //Uri downloadUrl = taskSnapshot.getDownloadUrl();
+//                                                        if (taskSnapshot.getMetadata() != null) {
+//                                                            if (taskSnapshot.getMetadata().getReference() != null) {
+//                                                                Task<Uri> result = taskSnapshot.getStorage().getDownloadUrl();
+//                                                                result.addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                                                                    @Override
+//                                                                    public void onSuccess(Uri uri) {
+//                                                                        String imageUrl = uri.toString();
+//                                                                        //createNewPost(imageUrl);
+//                                                                        Map imgmap = new HashMap();
+//                                                                        imgmap.put("profileImage",imageUrl);
+//                                                                        userDb.updateChildren(imgmap);
+//                                                                        // userDb.child("Image").setValue(imageUrl);
+//
+//                                                                    }
+//                                                                });
+//                                                            }
+//                                                        }
+//                                                        Toast.makeText(MainActivity.this,"image uploaded successfully",Toast.LENGTH_SHORT).show();
+//                                                    }
+//                                                })
+//                                                .addOnFailureListener(new OnFailureListener() {
+//                                                    @Override
+//                                                    public void onFailure(@NonNull Exception exception) {
+//                                                        Toast.makeText(MainActivity.this, "Could not upload image", Toast.LENGTH_SHORT).show();
+//                                                    }
+//                                                });
+
+
                                         Intent intent = new Intent(MainActivity.this,AskPicture.class);//creating a new intent pointing to Profile
                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);//starting this new intent
@@ -267,6 +316,14 @@ public class MainActivity extends AppCompatActivity {
             password.setError(null);
         }
         return valid;
+    }
+
+    private String getExtension(Uri uri)
+    {
+        ContentResolver contentResolver = getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+
     }
 
 }

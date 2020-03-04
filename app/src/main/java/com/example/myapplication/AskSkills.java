@@ -86,7 +86,7 @@ public class AskSkills extends AppCompatActivity {
                     FileUpload();
                 }
 
-                Toast.makeText(AskSkills.this, AskPicture.uriProfileImage.toString(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(AskSkills.this, AskPicture.uriProfileImage.toString(), Toast.LENGTH_SHORT).show();
 
 
 
