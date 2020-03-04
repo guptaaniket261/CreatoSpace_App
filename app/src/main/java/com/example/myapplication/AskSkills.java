@@ -91,7 +91,7 @@ public class AskSkills extends AppCompatActivity {
 
 
 
-                Intent intent = new Intent(AskSkills.this,Profile.class);
+                Intent intent = new Intent(AskSkills.this,Chat.class);
                 startActivity(intent);
                 finish();
             }

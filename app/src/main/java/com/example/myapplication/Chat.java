@@ -15,7 +15,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.example.myapplication.Fragments.CardFragment;
 import com.example.myapplication.Fragments.ChatsFragment;
+import com.example.myapplication.Fragments.ProfileFragment;
 import com.example.myapplication.Fragments.UsersFragment;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -71,6 +73,8 @@ public class Chat extends AppCompatActivity {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPagerAdapter.addFragmnet(new ChatsFragment(),"Chats");
         viewPagerAdapter.addFragmnet(new UsersFragment(),"Users");
+        viewPagerAdapter.addFragmnet(new ProfileFragment(),"Profile");
+        viewPagerAdapter.addFragmnet(new CardFragment(),"Card Swiper");
 
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);

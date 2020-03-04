@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
         //and take the user to profile activity
         if (firebaseLogin.getCurrentUser() != null) {
             finish();
-            startActivity(new Intent(this, Profile.class));
+            startActivity(new Intent(this, Chat.class));
         }
     }
 
@@ -228,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);//starting this new intent
                                     } else {
-                                        Intent intent = new Intent(MainActivity.this, Profile.class);//creating a new intent pointing to AskPicture
+                                        Intent intent = new Intent(MainActivity.this, Chat.class);//creating a new intent pointing to AskPicture
                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);//starting this new intent
                                     }
